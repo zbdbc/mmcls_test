@@ -4,18 +4,18 @@ model = dict(
         type='ResNet',
         depth=18,
         num_stages=4,
-        out_indices=(3, ),
+        out_indices=(3,),
         style='pytorch'),
     neck=dict(type='GeneralizedMeanPooling'),
     head=dict(
         type='LinearClsHead',
         num_classes=102,
         in_channels=512,
-        loss=dict(type='FocalLoss', loss_weight=1.0),#L1Loss CrossEntropyLoss
+        loss=dict(type='FocalLoss', loss_weight=1.0),  # 可以更改损失函数
         topk=(1, 5)),
     train_cfg=dict(
-            augments=dict(type='BatchMixup', alpha=0.2, num_classes=102,
-                          prob=1.))
+        augments=dict(type='BatchMixup', alpha=0.2, num_classes=102,
+                      prob=1.))
 )
 dataset_type = 'ImageNet'
 img_norm_cfg = dict(
@@ -24,7 +24,7 @@ train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='RandomResizedCrop', size=224),
     dict(type='RandomFlip', flip_prob=0.5, direction='horizontal'),
-    dict(type='ColorJitter', brightness=0.5, contrast=0.5, saturation=0.5),
+    dict(type='ColorJitter', brightness=0.5, contrast=0.5, saturation=0.5),  # 亮度、对比度、饱和度
     dict(
         type='Normalize',
         mean=[123.675, 116.28, 103.53],
@@ -51,8 +51,8 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type='MyFilelist',
-        data_prefix='D:\\eclipse-workspace\\PyTorch4\\mmclassification-master\\mmcls\\data\\flower_data\\train_filelist',
-        ann_file='D:\\eclipse-workspace\\PyTorch4\\mmclassification-master\\mmcls\\data\\flower_data\\train.txt',
+        data_prefix='../mmcls/data/flower_data/train_filelist',
+        ann_file='../mmcls/data/flower_data/train.txt',
         pipeline=[
             dict(type='LoadImageFromFile'),
             dict(type='RandomResizedCrop', size=224),
@@ -107,7 +107,7 @@ checkpoint_config = dict(interval=50)
 log_config = dict(interval=100, hooks=[dict(type='TextLoggerHook')])
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-load_from = '../mmcls/data/resnet18_8xb32_in1k_20210831-fbbb1da6.pth'
+load_from = '../mmcls/data/resnet18_8xb32_in1k_20210831-fbbb1da6.pth'   # 加载预训练模型
 resume_from = None
 workflow = [('train', 1)]
 work_dir = './work_dirs/resnet18_8xb32_in1k'
