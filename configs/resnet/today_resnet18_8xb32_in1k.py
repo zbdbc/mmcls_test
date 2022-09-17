@@ -45,9 +45,9 @@ data = dict(
     samples_per_gpu=32,
     workers_per_gpu=2,
     train=dict(
-        type='ImageNet',  # 大坑  这里用的是ImageNet,而不是MyFilelist
-        data_prefix='../mmcls/data/flower_data/train',
-        # ann_file='D:\\eclipse-workspace\\PyTorch4\\mmclassification-master\\mmcls\\data\\flower_data\\train.txt',
+        type='MyFilelist',  # 大坑  这里用的是ImageNet,而不是MyFilelist
+        data_prefix='../mmcls/data/flower_data/train_filelist',
+        ann_file='../mmcls/data/flower_data/train.txt',
         pipeline=[
             dict(type='LoadImageFromFile'),
             dict(type='RandomResizedCrop', size=224),
@@ -63,8 +63,8 @@ data = dict(
         ]),
     val=dict(
         type='ImageNet',
-        data_prefix='../mmcls/data/flower_data/valid',
-        # ann_file='../mmcls/data/flower_data/val.txt',
+        data_prefix='../mmcls/data/flower_data/val_filelist',
+        ann_file='../mmcls/data/flower_data/val.txt',
         pipeline=[
             dict(type='LoadImageFromFile'),
             dict(type='Resize', size=(256, -1)),
@@ -79,8 +79,8 @@ data = dict(
         ]),
     test=dict(
         type='ImageNet',
-        data_prefix='../mmcls/data/flower_data/valid',
-        # ann_file='../mmcls/data/flower_data/val.txt',
+        data_prefix='../mmcls/data/flower_data/val_filelist',
+        ann_file='../mmcls/data/flower_data/val.txt',
         pipeline=[
             dict(type='LoadImageFromFile'),
             dict(type='Resize', size=(256, -1)),
