@@ -14,7 +14,7 @@ model = dict(
         loss=dict(type='FocalLoss', loss_weight=1.0),  # 可以更改损失函数
         topk=(1, 5)),
     train_cfg=dict(
-        augments=dict(type='BatchMixup', alpha=0.2, num_classes=102,
+        augments=dict(type='BatchMixup', alpha=0.2, num_classes=102,    # 狗*0.5+猫*0.5  ； Mixup;Cutout;CutMix
                       prob=1.))
 )
 dataset_type = 'ImageNet'
